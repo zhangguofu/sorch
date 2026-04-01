@@ -66,7 +66,7 @@ int binary_search(const void *data_list, size_t n, size_t size,
 }
 
 
-int32_t merge_sort(void *data_list, size_t n, size_t size, int (* cmp)(void *a, void *b))
+int merge_sort(void *data_list, size_t n, size_t size, int (* cmp)(void *a, void *b))
 {
     // check if any of the inputs are invalid
     if (data_list == NULL || n <= 0 || size <= 0 || cmp == NULL) {

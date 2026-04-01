@@ -43,7 +43,7 @@ extern "C" {
  * @param size        the size of each element
  * @param cmp         the comparison function
  */
-int32_t merge_sort(void *data_list, size_t n, size_t size, int (* cmp)(void *a, void *b));
+int merge_sort(void *data_list, size_t n, size_t size, int (* cmp)(void *a, void *b));
 
 /**
  * @brief binary search
