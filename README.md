@@ -9,11 +9,11 @@ Sorch 是一个为 RT-Thread 设计的排序与搜索算法库，提供高效的
 ## 1.1 主要特性
 
 - 归并排序（Merge Sort）：
-  - 时间复杂度 O(n log n)，空间复杂度 O(n)
+  - 时间复杂度 $O(n \log n)$，空间复杂度 $O(n)$
   - 稳定排序算法，保持相等元素的相对顺序
   - 支持自定义比较函数，适用于任意数据类型
 - 二分查找（Binary Search）：
-  - 时间复杂度 O(log n)，适用于已排序数组
+  - 时间复杂度 $O(\log n)$，适用于已排序数组
   - 快速查找元素位置
   - 支持自定义比较函数，适用于任意数据类型
 - 基于 RT-Thread 内存管理（使用 rt_malloc/rt_free）
@@ -43,7 +43,7 @@ int int_cmp(void *a, void *b)
 // 对数组进行排序
 int data[] = {5, 2, 8, 1, 9, 3};
 size_t n = sizeof(data) / sizeof(data[0]);
-int32_t ret = merge_sort(data, n, sizeof(int), int_cmp);
+int ret = merge_sort(data, n, sizeof(int), int_cmp);
 if (ret == 0) {
     rt_kprintf("Sort success!\n");
 } else if (ret == -2) {
@@ -135,7 +135,7 @@ int sorch_demo(void)
     print_array(data, n);
 
     // 执行归并排序
-    int32_t ret = merge_sort(data, n, sizeof(int), int_cmp);
+    int ret = merge_sort(data, n, sizeof(int), int_cmp);
     if (ret != 0) {
         rt_kprintf("Sort failed with error code: %d\n", ret);
         return -1;
@@ -168,7 +168,7 @@ MSH_CMD_EXPORT(sorch_demo, Sorch module demo);
 ## 4.1 归并排序
 
 ```c
-int32_t merge_sort(void *data_list, size_t n, size_t size, int (*cmp)(void *a, void *b));
+int merge_sort(void *data_list, size_t n, size_t size, int (*cmp)(void *a, void *b));
 ```
 
 **参数：**
@@ -185,8 +185,10 @@ int32_t merge_sort(void *data_list, size_t n, size_t size, int (*cmp)(void *a, v
 - `-1`: 参数无效（NULL 指针或 n/size 为 0）
 - `-2`: 内存分配失败
 
-**时间复杂度：** O(n log n)
-**空间复杂度：** O(n)
+**时间复杂度：** $O(n \log n)$
+
+**空间复杂度：** $O(n)$
+
 
 ## 4.2 二分查找
 
@@ -206,7 +208,8 @@ int binary_search(const void *data_list, size_t n, size_t size,
 - >= 0: 找到的元素索引
 - `-1`: 未找到或参数无效
 
-**时间复杂度：** O(log n)
+**时间复杂度：** $O(\log n)$
+
 **前置条件：** 数据数组必须已按比较函数的顺序排序
 
 **注意：** 二分查找要求数组必须是有序的，否则查找结果不可预测。

@@ -26,45 +26,6 @@
 
 #include "sorch.h"
 
-int binary_search(const void *data_list, size_t n, size_t size,
-                  void *x, int (*cmp)(void *a, void *b))
-{
-    // check if any of the parameters are NULL or the size is 0
-    if (NULL == data_list || NULL == x || NULL == cmp || 0 == n || 0 == size) {
-        return -1;
-    }
-
-    // set up the left and right pointers to the beginning and end of the array
-    char *left = (char *)data_list;
-    char *right = left + (n - 1) * size;
-
-    // loop until left is greater than right
-    while (left <= right) {
-        // set the mid pointer to the middle of the current range being searched
-        size_t index = ((size_t)(right - left) / size) / 2;
-        char *mid = left + index * size;
-
-        // use the cmp function to compare the element at mid with the element being searched
-        int cmp_res = cmp(mid, x);
-
-        // if the element at mid is equal to x, return the index of mid
-        if (cmp_res == 0) {
-            return (int)((mid - (char *)data_list) / size);
-        }
-        // if the element at mid is less than x, shift the range to the right of mid
-        else if (cmp_res < 0) {
-            left = mid + size;
-        }
-        // if the element at mid is greater than x, shift the range to the left of mid
-        else {
-            right = mid - size;
-        }
-    }
-
-    // element not found
-    return -1;
-}
-
 
 int merge_sort(void *data_list, size_t n, size_t size, int (* cmp)(void *a, void *b))
 {
@@ -132,4 +93,43 @@ int merge_sort(void *data_list, size_t n, size_t size, int (* cmp)(void *a, void
 
     rt_free(mem_buf);
     return 0;
+}
+
+int binary_search(const void *data_list, size_t n, size_t size,
+                  void *x, int (*cmp)(void *a, void *b))
+{
+    // check if any of the parameters are NULL or the size is 0
+    if (NULL == data_list || NULL == x || NULL == cmp || 0 == n || 0 == size) {
+        return -1;
+    }
+
+    // set up the left and right pointers to the beginning and end of the array
+    char *left = (char *)data_list;
+    char *right = left + (n - 1) * size;
+
+    // loop until left is greater than right
+    while (left <= right) {
+        // set the mid pointer to the middle of the current range being searched
+        size_t index = ((size_t)(right - left) / size) / 2;
+        char *mid = left + index * size;
+
+        // use the cmp function to compare the element at mid with the element being searched
+        int cmp_res = cmp(mid, x);
+
+        // if the element at mid is equal to x, return the index of mid
+        if (cmp_res == 0) {
+            return (int)((mid - (char *)data_list) / size);
+        }
+        // if the element at mid is less than x, shift the range to the right of mid
+        else if (cmp_res < 0) {
+            left = mid + size;
+        }
+        // if the element at mid is greater than x, shift the range to the left of mid
+        else {
+            right = mid - size;
+        }
+    }
+
+    // element not found
+    return -1;
 }
